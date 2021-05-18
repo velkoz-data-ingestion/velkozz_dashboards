@@ -1,0 +1,79 @@
+body {
+    background-color: #0d1117;
+    color: #dbe1e8;    
+    margin: 0px !important;
+}
+
+.main-header {
+    background-color: #161b22;
+    height: 7rem;
+    width: 100%;
+}
+
+.main-header a {
+    text-decoration: none;
+    float: left;
+    color: #ffffff;
+    text-align: center;
+    font-size: 17px;
+    padding-left: 0.5em;
+    padding-right: 1em;
+    padding-top: 1.5em;
+    padding-bottom: 1.0em;
+}
+
+.main_graphs_div {
+    margin: 10px;
+}
+
+#choropleth-inputs > * {
+    margin: 10px;
+    background-color: #0d1117;
+    color: #dbe1e8;
+}
+
+#timeseries-inputs {
+    margin-top: 10px;
+}
+
+#timeseries-inputs > * {
+    margin: 10px;
+    background-color: #0d1117;
+    color: #dbe1e8;
+}
+
+.Select-control {
+    border-color: #dbe1e8 !important;
+    color: #ffffff !important;
+    background-color: #0d1117 !important;
+}
+
+.Select-control > * {
+    color: #ffffff !important;
+    background-color: #0d1117 !important;
+}
+
+.Select-value-label {
+    color: #dbe1e8 !important;
+}
+
+.Select-menu-outer {
+    color: #dbe1e8 !important;
+    background-color: #0d1117 !important;
+}
+
+.DateRangePickerInput {
+    background-color: #0d1117;
+    border-color: #0d1117;
+}
+
+.DateRangePickerInput > * {
+    background-color: #0d1117;
+
+}
+
+.DateInput_input {
+    color: #dbe1e8 !important;
+    background-color: #0d1117 !important;
+}
+
