@@ -13,8 +13,6 @@ import plotly.express as px
 
 # Importing data managment packages:
 import pandas as pd
-import shapefile
-from io import StringIO
 import geopandas as gpd
 import os
 import pandas as pd
@@ -27,97 +25,22 @@ from vdeveloper_api.velkozz_pywrapper.query_api.velkozz_api import VelkozzAPI
 
 # Importing main Dash app object:
 from app import app
+from .utils import build_basic_layout
 
 # <------------------------------- Data Ingestion / Transformation ------------------------------->
 
 # Reading Ontario Township Shapefile as a geopandas dataframe:
 gdf = gpd.read_file(f"{Path(__file__).parent}/../assets/gis_data/ontario/Geographic_Township_Improved.shp").to_crs(epsg=4326)
 
-# Connecting to the Velkozz API: TODO: Make this a configurable ENV param:
+# Connecting to the Velkozz API:
 velkozz_con = VelkozzAPI(token=os.environ["VELKOZZ_API_KEY"])
 max_date_val = date.today() + timedelta(days=1)
 
-layout = html.Div([
-
-    html.Div(id="main_graphs_div", className="main_graphs_div", children=[
-
-        html.Div(
-            id="choropleth-inputs",
-            className = "choropleth_inputs",
-
-            children=[
-
-                # Query Parameter Inputs:
-                dcc.DatePickerRange(
-                    id="job-date-range-query",
-                    display_format="YYYY/MM/DD",
-                    max_date_allowed=max_date_val),
-
-                dcc.Input(
-                    id="job-type-query",
-                    type="text",
-                    placeholder="Job Type"),
-                
-                dcc.Input(
-                    id="company-name-query",
-                    type="text",
-                    placeholder="Company Name"
-                ),
-
-                html.Button(
-                    id="submit-button-state", 
-                    children="Search Jobs", 
-                    style={
-                        "background":"#07a15e", "color":"#dbe1e8", "border":"none"
-                        }),
-            ],
-            style={}
-        ),
-
-        dcc.Graph(id="ontario-job-map", style={}),
-
-        html.Div(
-        id="timeseries-inputs",
-        className="timeseries_inputs",
-
-        children=[
-                dcc.Dropdown(
-                    id="town-listings-selector-dropdown",
-                    options = [{"label": town.title(), "value": town.title()} for town in gdf["OFFICIAL_N"].tolist()],
-                    value= "Toronto"),
-
-                dcc.DatePickerRange(
-                    id="job-timeseries-range-query",
-                    display_format="YYYY/MM/DD",
-                    max_date_allowed=max_date_val),
-                
-                dcc.Input(
-                    id="timeseries-job-type",
-                    type="text",
-                    placeholder="Job Type"),
-
-                dcc.Input(
-                    id="timeseries-company-name-query",
-                    type="text",
-                    placeholder="Company Name"),
-
-                html.Button(
-                    id="submit-button-timeseries-state",
-                    children="Search Jobs", 
-                    style={
-                        "background":"#07a15e", "color":"#dbe1e8", "border":"none"
-                        }),
-        ]
-    ),
-
-        dcc.Graph(id="job-listings-timeseries", style={})
-    ]),
-])
-
-
+# Building the default layout from the utils method:
+layout = build_basic_layout(gdf, max_date_val)
 
 @app.callback(
-    dash.dependencies.Output("ontario-job-map", "figure"),
+    dash.dependencies.Output("job-map", "figure"),
     dash.dependencies.Input("submit-button-state", "n_clicks"),
     dash.dependencies.State("job-date-range-query", "start_date"),
     dash.dependencies.State("job-date-range-query", "end_date"),

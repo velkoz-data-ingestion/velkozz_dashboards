@@ -1,0 +1,4 @@
+-e git+https://github.com/velkoz-data-ingestion/velkozz_dev_api.git#egg=velkozz-developer-api
+git+git://github.com/geopandas/geopandas.git
+pandas
+dash 

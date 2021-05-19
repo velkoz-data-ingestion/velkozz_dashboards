@@ -5,7 +5,7 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 
 # Importing main Dash projects and project layouts:
-from app import app
+from app import server, app
 from apps import ontario, homepage
 
 app.layout = html.Div([
@@ -30,12 +30,25 @@ def display_page(pathname):
     """
     if pathname == "/":
         return homepage.layout
-
     if pathname == "/ontario":
         return ontario.layout
+    if pathname == "/british_columbia":
+        return british_columbia.layout
+    if pathname == "/manitoba":
+        return manitoba.layout
+    if pathname == "/alberta":
+        return alberta.layout
+    if pathname == "/new_brunswick":
+        return new_brunswick.layout
+    if pathname == "/newfoundland_and_labrador":
+        return newfoundland_and_labrador.layout
+    if pathname == "/quebec":
+        return quebec.layout
+    if pathname == "/saskatchewan":
+        return saskatchewan.layout
 
     else:
         return "404"
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    server.run(debug=False, port=8010)

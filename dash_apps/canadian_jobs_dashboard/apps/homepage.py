@@ -20,4 +20,4 @@ layout = html.Div([
         html.A(children=[html.Div(className="country_card", children=["Quebec"])], href="quebec"),
         html.A(children=[html.Div(className="country_card", children=["Saskatchewan"])], href="saskatchewan")
     ])
-])
+])  
